@@ -4,7 +4,7 @@
  *    File: icPrim.c        Type: C Source   *  Date Revised: 27 Nov 2007  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-    Copyright (c) 2007..2022, Nick Matthews
+    Copyright (c) 2007, Nick Matthews
 
 	Licence: GNU GPLv3
 */
@@ -54,5 +54,26 @@ elem kcinteger::PrimAdd( size_t xlen, elem* x, size_t alen, const elem* a )
 		k >>= ELEM_BITS;
 	}
 	return (elem) k;
+}
+
+ // x -= a; for x > a (result must be positive)
+
+void kcinteger::PrimSub( size_t xlen, elem* x, size_t alen, const elem* a )
+{
+	assert( xlen == alen ? PrimCmp( xlen, x, a ) >= 0 : xlen > alen );
+
+	size_t j = 0;
+	slelem k = 0;
+	for( ; j < alen; j++ ) {
+		k += (slelem) x[j] - a[j];
+		x[j] = (elem) k;
+		k >>= ELEM_BITS;
+	}
+	for( ; j < xlen; j++ ) {
+		if( k == 0 ) break;
+		k += x[j];
+		x[j] = (elem) k;
+		k >>= ELEM_BITS;
+	}
 }
 

@@ -4,7 +4,7 @@
  *    File: icPrim.h        Type: C Header   *  Date Revised: 27 Nov 2007  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-    Copyright (c) 2007..2022, Nick Matthews
+    Copyright (c) 2007, Nick Matthews
 
     Licence: GNU GPLv3
 */
@@ -25,11 +25,14 @@ namespace kcinteger {
     constexpr elem LEAD_BIT = 0x8000U;
     constexpr elem ELEM_BORROW = 0xffffU;
 
-    // return zero if a == b, pos if a > b, neg if a < b
+            // return zero if a == b, pos if a > b, neg if a < b
     extern int PrimCmp( size_t len, const elem* a, const elem* b );
 
     // x += a;  where alen <= xlen, returns a carry if result len < blen
     extern elem PrimAdd( size_t xlen, elem* x, size_t alen, const elem* a );
+
+    // x -= a;  where alen <= xlen, returns a borrow (-1) if xlen > alen
+    extern void PrimSub( size_t xlen, elem* x, size_t alen, const elem* a );
 
 }
 
