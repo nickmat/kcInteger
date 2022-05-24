@@ -71,3 +71,38 @@ TEST_CASE( "Test PrimSub function", "[PrimSub]" )
     REQUIRE( x[2] == 0xffffffff );
 }
 
+TEST_CASE( "Test PrimMulElem function", "[PrimMulElem]" )
+{
+    elem x[4] = { 0xffffffff, 0xffffffff, 0xffffffff, 0x0 };
+
+    PrimMulElem( 3, x, 0 );
+    REQUIRE( x[0] == 0x0 );
+    REQUIRE( x[1] == 0x0 );
+    REQUIRE( x[2] == 0x0 );
+    REQUIRE( x[3] == 0x0 );
+
+    x[0] = 0xffffffff;
+    x[1] = 0xffffffff;
+    x[2] = 0xffffffff;
+    PrimMulElem( 3, x, 1 );
+    REQUIRE( x[0] == 0xffffffff );
+    REQUIRE( x[1] == 0xffffffff );
+    REQUIRE( x[2] == 0xffffffff );
+    REQUIRE( x[3] == 0x0 );
+
+    PrimMulElem( 3, x, 2 );
+    REQUIRE( x[0] == 0xfffffffe );
+    REQUIRE( x[1] == 0xffffffff );
+    REQUIRE( x[2] == 0xffffffff );
+    REQUIRE( x[3] == 0x1 );
+
+    x[0] = 0xffffffff;
+    x[1] = 0xffffffff;
+    x[2] = 0xffffffff;
+    x[3] = 0x0;
+    PrimMulElem( 3, x, 0xffffffff );
+    REQUIRE( x[0] == 0x1 );
+    REQUIRE( x[1] == 0xffffffff );
+    REQUIRE( x[2] == 0xffffffff );
+    REQUIRE( x[3] == 0xfffffffe );
+}

@@ -34,6 +34,11 @@ namespace kcinteger {
     // x -= a;  where alen <= xlen, returns a borrow (-1) if xlen > alen
     extern void PrimSub( size_t xlen, elem* x, size_t alen, const elem* a );
 
+    // x *= v;  xlen is the occupied size of element array x.
+    //          the array has an addition (cleared) element to allow
+    //          for the expanded result.
+    extern void PrimMulElem( size_t xlen, elem* x, elem v );
+
 }
 
 #endif // PRIMITIVE_H 

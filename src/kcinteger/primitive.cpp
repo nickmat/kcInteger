@@ -77,3 +77,19 @@ void kcinteger::PrimSub( size_t xlen, elem* x, size_t alen, const elem* a )
 	}
 }
 
+// x *= v;  xlen is the occupied size of element array x.
+//          the array has an addition (cleared) element to allow
+//          for the expanded result.
+// NOTE: Is this required?
+
+void kcinteger::PrimMulElem( size_t xlen, elem* x, elem v )
+{
+	lelem t = 0;
+	for( size_t j = 0; j < xlen; j++ )
+	{
+		t += (lelem) x[j] * v;
+		x[j] = (elem) t;
+		t >>= ELEM_BITS;
+	}
+	x[xlen] = (elem) t;
+}
