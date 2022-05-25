@@ -117,3 +117,25 @@ void kcinteger::PrimMul(
 	}
 }
 
+//  x =/ v  and  return = x % v  (v != 0)
+
+//  x = the dividend array changed to resulting quotient.
+//  xlen = len of x array
+//  v = the divisor element, v > 0
+//  returns the resulting remainder, (an element)
+
+elem kcinteger::PrimDivElem( size_t xlen, elem* x, elem v )
+{
+	assert( v != 0 );
+
+	lelem r = 0;
+    while( xlen )
+    {
+		--xlen;
+		r = r * ELEM_BASE + x[xlen];
+        x[xlen] = (elem) ( r / v );
+		r %= v;
+	}
+	return (elem) r;
+}
+
