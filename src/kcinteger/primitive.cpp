@@ -93,3 +93,27 @@ void kcinteger::PrimMulElem( size_t xlen, elem* x, elem v )
 	}
 	x[xlen] = (elem) t;
 }
+
+//  x = a * b;  where length of x is alen + blen and is cleared
+
+void kcinteger::PrimMul(
+	elem* x, size_t alen, const elem* a, size_t blen, const elem* b )
+{
+	for( size_t j = 0; j < blen; j++ )
+	{
+		if( b[j] == 0 )
+		{
+			x[j + alen] = 0;
+			continue;
+		}
+		elem k = 0;
+		for( size_t i = 0; i < alen; i++ )
+		{
+			lelem t = (lelem) a[i] * b[j] + x[i + j] + k;
+			x[i + j] = (elem) t;
+			k = (elem) (t >> ELEM_BITS);
+		}
+		x[j + alen] = k;
+	}
+}
+

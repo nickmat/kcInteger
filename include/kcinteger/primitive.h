@@ -39,6 +39,10 @@ namespace kcinteger {
     //          for the expanded result.
     extern void PrimMulElem( size_t xlen, elem* x, elem v );
 
+    // x = a * b;  where length of x is alen + blen and has been cleared
+    extern void PrimMul(
+        elem* x, size_t alen, const elem* a, size_t blen, const elem* b );
+
 }
 
 #endif // PRIMITIVE_H 
